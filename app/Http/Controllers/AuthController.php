@@ -29,10 +29,9 @@ class AuthController extends Controller
         }
         $user = Auth::user();
         $token = $user->createToken('token')->plainTextToken;
-        $cookie = cookie('jet', $token, 60 * 24);
         return response([
-            'message' => 'login successful'
-        ])->withCookie($cookie);
+            'message' => 'Login token='.$token
+        ]);
     }
 
     public function user()
@@ -42,10 +41,6 @@ class AuthController extends Controller
 
     public function logout()
     {
-        $cookie = Cookie::forget('jwt');
-
-        return response([
-            'message'=>'success'
-        ])->withCookie($cookie);
+        auth()->user()->tokens()->delete();
     }
 }

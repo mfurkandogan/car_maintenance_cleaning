@@ -72,6 +72,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
+        //TODO versiyonlama burda
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->namespace)
