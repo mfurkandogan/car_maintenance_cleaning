@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBalanceHistoriesTable extends Migration
+class CreateOrderItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateBalanceHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('balance_histories', function (Blueprint $table) {
+        Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->decimal('balance',8,2);
-            $table->tinyInteger('type')->default(0);
-            $table->bigInteger('order_id')->nullable();
+            $table->bigInteger('order_id');
+            $table->bigInteger('service_id');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateBalanceHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('balance_histories');
+        Schema::dropIfExists('order_items');
     }
 }

@@ -13,6 +13,7 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        //TODO validate
         return User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
