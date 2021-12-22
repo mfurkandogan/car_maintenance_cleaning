@@ -14,8 +14,8 @@ class StatusSeeder extends Seeder
     {
         $data = array(
             [
-                'status_name' => 'Awaiting Payment',
-                'status_code' => 'AP'
+                'status_name' => 'Payment Done',
+                'status_code' => 'PD'
             ],
             [
                 'status_name' => 'In Progress',

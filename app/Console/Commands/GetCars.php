@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redis;
+use Mockery\Exception;
 
 class GetCars extends Command
 {
@@ -43,9 +44,15 @@ class GetCars extends Command
     {
         $response = Http::get(self::CAR_DETAIL_LINK);
 
-        if (200 == $response->status()) {
-            $responseBody = json_decode($response->getBody(), true);
-            Redis::set(self::CAR_REDIS_KEY, json_encode($responseBody["RECORDS"]));
+        try {
+            if (200 == $response->status()) {
+                $responseBody = json_decode($response->getBody(), true);
+                Redis::set(self::CAR_REDIS_KEY, json_encode($responseBody["RECORDS"]));
+                return true;
+            }
+        } catch (\Exception $exception) {
+            throw new Exception('Error loading json extension');
         }
+        return false;
     }
 }

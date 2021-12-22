@@ -31,6 +31,7 @@ class BalanceHistoryListener
         $balance->type = $event->data['type'];
         $balance->balance = $event->data['price'];
         $balance->user_id = auth()->user()->id;
+        $balance->order_id = $event->data['order_id'] ?? null;
 
         $balance->save() === false;
     }

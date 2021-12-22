@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BalanceController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,5 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout',[AuthController::class,'logout']);
     Route::post('addBalance',[BalanceController::class,'addBalance']);
     Route::post('getServices',[ServiceController::class,'getServices']);
+    Route::post('createOrder',[OrderController::class,'createOrder']);
+    Route::get('getCars',[CarController::class,'getCars']);
 });
 
