@@ -16,7 +16,7 @@ class GetCars extends Command
      *
      * @var string
      */
-    protected $signature = 'car:get';
+    protected $signature = 'cars:get';
 
     /**
      * The console command description.
