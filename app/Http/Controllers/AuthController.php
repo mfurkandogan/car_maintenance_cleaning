@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,20 +25,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response([
-                'message' => 'Invalid credentials'
-            ], Response::HTTP_UNAUTHORIZED);
+            return response(['message' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
         }
         $user = Auth::user();
         $token = $user->createToken('token')->plainTextToken;
-        return response([
-            'message' => 'Login token='.$token
-        ],Response::HTTP_OK);
+        return response(['message' => 'Login token='.$token],Response::HTTP_OK);
     }
 
     public function user()
     {
-        return Auth::user();
+        return new UserResource(Auth::user());
     }
 
     public function logout()

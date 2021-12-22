@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\BalanceHistory;
+use App\Models\BalanceHistory;
 use App\Events\BalanceHistoryEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
