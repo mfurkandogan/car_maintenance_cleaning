@@ -16,26 +16,33 @@ class OrderController extends Controller
 {
     public function getOrders()
     {
+        $limit = $request->limit ?? 25;
+        $offset = $request->offset ?? 0;
 
-    }
-
-    private function generateOrderNumber()
-    {
-        return "PKS".$this->uniqueId(10);
+        $orders = Order::query()->get();
+        return response()->json($orders);
     }
 
     /**
      * @throws \Exception
      */
-    public function uniqueId($length = 10) {
+    private function generateOrderNumber()
+    {
+        return "PKS".$this->uniqueId();
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function uniqueId() {
         if (function_exists("random_bytes")) {
-            $bytes = random_bytes(ceil($length / 2));
+            $bytes = random_bytes(ceil(10 / 2));
         } elseif (function_exists("openssl_random_pseudo_bytes")) {
-            $bytes = openssl_random_pseudo_bytes(ceil($length / 2));
+            $bytes = openssl_random_pseudo_bytes(ceil(10 / 2));
         } else {
             throw new \Exception("no cryptographically secure random function available");
         }
-        return substr(bin2hex($bytes), 0, $length);
+        return substr(bin2hex($bytes), 0, 10);
     }
 
     public function createOrder(Request $request)

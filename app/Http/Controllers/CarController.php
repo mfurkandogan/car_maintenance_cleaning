@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Redis;
 use Symfony\Component\HttpFoundation\Response;
 
 
-
 class CarController extends Controller
 {
     public function getCars(Request $request)
@@ -19,14 +18,14 @@ class CarController extends Controller
         if ($cars = Redis::get(GetCars::CAR_REDIS_KEY)) {
 
             $carsArray = json_decode($cars, true);
-            $limitedData =array_slice($carsArray,$offset,$limit);
+            $limitedData = array_slice($carsArray, $offset, $limit);
             return response([
-                'cars'=>$limitedData
-            ],Response::HTTP_OK);
+                'cars' => $limitedData
+            ], Response::HTTP_OK);
         } else {
             return response([
-                'message'=>'Failed to load vehicle information'
-            ],Response::HTTP_OK);
+                'message' => 'Failed to load vehicle information'
+            ], Response::HTTP_OK);
         }
     }
 }
