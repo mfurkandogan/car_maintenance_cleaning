@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Service;
 use Illuminate\Database\Seeder;
 
 class ServiceSeeder extends Seeder
@@ -26,7 +27,7 @@ class ServiceSeeder extends Seeder
             ],
         );
         foreach ($data as $datum) {
-            $service = new \App\Service();
+            $service = new Service();
             $service->service_name = $datum['service_name'];
             $service->service_price = $datum['service_price'];
             $service->save();

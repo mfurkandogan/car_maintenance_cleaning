@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Status;
 use Illuminate\Database\Seeder;
 
 class StatusSeeder extends Seeder
@@ -26,7 +27,7 @@ class StatusSeeder extends Seeder
             ],
         );
         foreach ($data as $datum) {
-            $status = new \App\Status();
+            $status = new Status();
             $status->status_name = $datum['status_name'];
             $status->status_code = $datum['status_code'];
             $status->save();
