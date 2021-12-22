@@ -14,7 +14,7 @@ class CreateStatusTable extends Migration
     public function up()
     {
         Schema::create('statuses', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('status_name');
             $table->string('status_code');
             $table->timestamps();

@@ -14,7 +14,7 @@ class CreateBalanceHistoriesTable extends Migration
     public function up()
     {
         Schema::create('balance_histories', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->bigInteger('user_id');
             $table->decimal('balance',8,2);
             $table->tinyInteger('type')->default(0);

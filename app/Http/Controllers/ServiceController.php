@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Service;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function getServices()
     {
-        //TODO servis listeleme apisi
+        $services = Service::published()->get();
+        return response()->json($services);
     }
 }

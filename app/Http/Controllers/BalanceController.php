@@ -28,7 +28,7 @@ class BalanceController extends Controller
             return response([
                 'oldBalance' => number_format($oldBalance,2,'.',''),
                 'newBalance'=> '-'
-            ],\Symfony\Component\HttpFoundation\Response::HTTP_OK);
+            ],\Symfony\Component\HttpFoundation\Response::HTTP_PAYMENT_REQUIRED);
         }
     }
 }
