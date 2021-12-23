@@ -22,13 +22,15 @@ class BalanceController extends Controller
                 \Symfony\Component\HttpFoundation\Response::HTTP_NOT_ACCEPTABLE);
         }
 
-        $oldBalance = auth()->user()->balance;
-        $newBalance = auth()->user()->balance += $request->input('price');
+
 
         DB::beginTransaction();
 
         try {
-            auth()->user()->save();
+            $oldBalance = auth()->user()->balance;
+            auth()->user()->balanceTransAction(1,$request->input('price'));
+            $newBalance = auth()->user()->balance;
+
             $data = [
                 'type'=>1,
                 'price'=>$request->input('price')

@@ -15,12 +15,17 @@ class CreateBalanceHistoriesTable extends Migration
     {
         Schema::create('balance_histories', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->decimal('balance',8,2);
             $table->tinyInteger('type')->default(0);
             $table->bigInteger('order_id')->nullable();
             $table->timestamps();
         });
+
+        Schema::table('balance_histories', function($table) {
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+
     }
 
     /**

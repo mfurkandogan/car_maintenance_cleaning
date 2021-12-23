@@ -29,5 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('getServices',[ServiceController::class,'getServices']);
     Route::post('createOrder',[OrderController::class,'createOrder']);
     Route::get('getCars',[CarController::class,'getCars']);
+    Route::get('getOrders',[OrderController::class,'getOrders']);
 });
 

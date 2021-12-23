@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\BalanceHistoryEvent;
+use App\Http\Resources\OrderCollection;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Service;
@@ -14,13 +15,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OrderController extends Controller
 {
-    public function getOrders()
+    public function getOrders(Request $request)
     {
         $limit = $request->limit ?? 25;
         $offset = $request->offset ?? 0;
+        $service_id = $request->service_id ?? 0;
 
-        $orders = Order::query()->get();
-        return response()->json($orders);
+        $orders = Order::with('order_items.service');
+        if($service_id > 0){
+            $orders = $orders->where('service_id',$service_id);
+        }
+        $orders = $orders->skip($offset)->limit($limit)->get();
+        return new OrderCollection($orders);
     }
 
     /**
@@ -55,7 +61,7 @@ class OrderController extends Controller
 
         if ($validation->fails()) {
             return response(['message' => 'All fields are required','errors' => $validation->errors()->toArray()],
-                \Symfony\Component\HttpFoundation\Response::HTTP_NOT_ACCEPTABLE);
+                Response::HTTP_NOT_ACCEPTABLE);
         }
 
         $nonPublishedServices = Service::whereIn('id', $request->service_id)->nonPublished()->count();
@@ -99,8 +105,8 @@ class OrderController extends Controller
                 $order->order_items()->save($orderItem);
             }
 
-            auth()->user()->balance -= $totalServicePrice;
-            auth()->user()->save();
+            auth()->user()->balanceTransAction(0,$request->input('price'));
+
             $data = [
                 'type'=>0,
                 'price'=>$totalServicePrice,

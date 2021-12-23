@@ -28,4 +28,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+
+    public function balanceTransAction($type,$price)
+    {
+        if($type==0){
+            auth()->user()->balance -= $price;
+        } elseif ($type==1){
+            auth()->user()->balance += $price;
+        }
+
+        return auth()->user()->save();
+    }
 }

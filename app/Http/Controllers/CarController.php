@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Console\Commands\GetCars;
+use App\Http\Resources\CarCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,9 +20,7 @@ class CarController extends Controller
 
             $carsArray = json_decode($cars, true);
             $limitedData = array_slice($carsArray, $offset, $limit);
-            return response([
-                'cars' => $limitedData
-            ], Response::HTTP_OK);
+            return new CarCollection($limitedData);
         } else {
             return response([
                 'message' => 'Failed to load vehicle information'
