@@ -44,23 +44,96 @@ php artisan serve
 
 ## User Endpoints
 
-### Post - Login Request : /api/v1/login	
+### Post - Login Request : /api/v1/login
+
+```
+Body Example : 
+{
+    "email"     :    "",        --required
+    "password"  :    ""         --required
+}
+```
 
 ### Get - User Request : /api/v1/user
+```
+Header Example : 
+{
+    Bearer Token        --required
+}
+```
 
 ### Post - Register Request : /api/v1/register
+```
+Body Example : 
+{
+    "name":"",          --required
+    "email":"",         --required
+    "password":""       --required
+}
+```
+
 
 ### Post - Logout Request : /api/v1/logout
-
+```
+Header Example : 
+{
+    Bearer Token        --required
+}
+```
 
 ## Operation Endpoints
 
-### Post - Add Balance Request : /api/v1/addBalance
-
-### Post - Create Order Request : /api/v1/createOrder
-
 ### Get - Get Order Request : /api/v1/getOrders
+```
+Header Example : 
+{
+    Bearer Token        --required
+}
+```
 
 ### Get - List Cars Request : /api/v1/getCars
+```
+Header Example : 
+{
+    Bearer Token        --required
+}
+```
 
 ### Get - List Services Request : /api/v1/getServices
+```
+Header Example : 
+{
+    Bearer Token        --required
+}
+```
+
+### Post - Add Balance Request : /api/v1/addBalance
+
+```
+Header Example : 
+{
+    Bearer Token        --required
+}
+
+Body Example :
+{
+"price":"",             --required
+}
+```
+
+### Post - Create Order Request : /api/v1/createOrder
+```
+Header Example : 
+{
+    Bearer Token        --required
+}
+
+Body Example :
+{
+"service_id":"",        --required
+"car_id":"",            --required
+"price":""              --required
+}
+```
+
+
