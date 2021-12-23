@@ -27,7 +27,7 @@ Here is the code you need to run to upload the cars informations to redis:
 ```
 $ php artisan cars:get
 ```
-
+## Step 4: Final Step
 Finally, run the command via composer:
 
 ```
