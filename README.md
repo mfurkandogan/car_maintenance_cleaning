@@ -3,7 +3,13 @@ In this project , Customers will be able to log in, order, and track services th
 
 ## Step 1: Create database 
 
-First you need to create a table called "maintenance"
+First you need to create a table called "maintenance". 
+
+Default settings : 
+
+DB_DATABASE=maintenance
+DB_USERNAME=root
+DB_PASSWORD=
 
 ## Step 2: Step up a database tables
 
