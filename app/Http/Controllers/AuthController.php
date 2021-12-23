@@ -17,26 +17,22 @@ class AuthController extends Controller
     {
         $validation = Validator::make($request->all(),[
             'name' => 'required',
-            'email'=> 'required',
+            'email'=> 'required|unique:users',
             'password'=>'required'
         ]);
 
         if($validation->fails()){
-            return response(['message'=>'All fields are required','errors' => $validation->errors()->toArray()],
+            return response([
+                'message'=>'An error occurred while register',
+                'errors' => $validation->errors()->toArray()],
                 Response::HTTP_NOT_ACCEPTABLE);
         }
 
-        try {
-            return User::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password'))
-            ]);
-        } catch(QueryException $ex){
-            return response([
-               'message'=>$ex->errorInfo
-            ],Response::HTTP_BAD_REQUEST);
-        }
+        return User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password'))
+        ]);
 
     }
 

@@ -16,7 +16,9 @@ class BalanceController extends Controller
         $validation = Validator::make($request->all(),['price' => 'required|numeric']);
 
         if($validation->fails()){
-            return response(['message'=>'All fields are required','errors' => $validation->errors()->toArray()],
+            return response([
+                'message'=>'An error occurred while adding balance',
+                'errors' => $validation->errors()->toArray()],
                 \Symfony\Component\HttpFoundation\Response::HTTP_NOT_ACCEPTABLE);
         }
 
@@ -43,8 +45,9 @@ class BalanceController extends Controller
             DB::rollback();
             return response([
                 'oldBalance' => number_format($oldBalance,2,'.',''),
-                'newBalance'=> '-'
+                'newBalance'=> $exception->getMessage()
             ],\Symfony\Component\HttpFoundation\Response::HTTP_PAYMENT_REQUIRED);
+
         }
     }
 }
