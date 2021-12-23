@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\BalanceHistoryEvent;
+use App\Helpers\Helper;
 use App\Http\Resources\OrderCollection;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -27,28 +28,6 @@ class OrderController extends Controller
         }
         $orders = $orders->skip($offset)->limit($limit)->get();
         return new OrderCollection($orders);
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function generateOrderNumber()
-    {
-        return "PKS".$this->uniqueId();
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function uniqueId() {
-        if (function_exists("random_bytes")) {
-            $bytes = random_bytes(ceil(10 / 2));
-        } elseif (function_exists("openssl_random_pseudo_bytes")) {
-            $bytes = openssl_random_pseudo_bytes(ceil(10 / 2));
-        } else {
-            throw new \Exception("no cryptographically secure random function available");
-        }
-        return substr(bin2hex($bytes), 0, 10);
     }
 
     public function createOrder(Request $request)
@@ -91,7 +70,7 @@ class OrderController extends Controller
 
         try {
             $order = new Order();
-            $order->order_number = $this->generateOrderNumber();
+            $order->order_number = Helper::generateOrderNumber();
             $order->car_id = $request->car_id;
             $order->user_id = auth()->user()->id;
             $order->total_price = $totalServicePrice;
@@ -117,7 +96,8 @@ class OrderController extends Controller
             DB::commit();
 
             return response([
-                'message'=>'Your order has been successfully created. Order Number='.$order->order_number
+                'message'=>'Your order has been successfully created.',
+                'orderNumber' => $order->order_number
             ], Response::HTTP_OK);
 
         } catch (\Exception $exception) {
