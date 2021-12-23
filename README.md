@@ -41,6 +41,8 @@ Finally, run the command via composer:
 ```
 php artisan serve
 ```
+
+## User Endpoints
 | ---------------------------------------------------------------------------------------------- |
 
 ### Post - Login Request : /api/v1/login	
@@ -52,6 +54,8 @@ php artisan serve
 ### Post - Logout Request : /api/v1/logout
 
 | ---------------------------------------------------------------------------------------------- |
+
+## Operation Endpoints
 
 ### Post - Add Balance Request : /api/v1/addBalance
 
