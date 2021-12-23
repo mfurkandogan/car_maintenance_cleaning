@@ -43,7 +43,6 @@ php artisan serve
 ```
 
 ## User Endpoints
-| ---------------------------------------------------------------------------------------------- |
 
 ### Post - Login Request : /api/v1/login	
 
@@ -53,7 +52,6 @@ php artisan serve
 
 ### Post - Logout Request : /api/v1/logout
 
-| ---------------------------------------------------------------------------------------------- |
 
 ## Operation Endpoints
 
