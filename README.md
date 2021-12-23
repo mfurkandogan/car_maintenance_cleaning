@@ -30,7 +30,7 @@ $ php artisan db:seed
 ```
 ## Step 4: Upload vehicle information to Redis
 
-Here is the code you need to run to upload the cars informations to redis:
+Here is the code you need to run to upload the cars informations to redis (this command is set to run hourly from the moment the project is up and running):
 
 ```
 $ php artisan cars:get
