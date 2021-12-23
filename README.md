@@ -8,7 +8,9 @@ First you need to create a table called "maintenance".
 Default settings : 
 
 DB_DATABASE=maintenance
+<br>
 DB_USERNAME=root
+<br>
 DB_PASSWORD=
 
 ## Step 2: Step up a database tables
