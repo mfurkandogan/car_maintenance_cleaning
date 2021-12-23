@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Resources\StatusResource;
+use App\Models\Status;
 
 class StatusController extends Controller
 {
     public function getOrderStatus()
     {
-
+        $statuses = Status::published()->get();
+        return new StatusResource($statuses);
     }
 }
