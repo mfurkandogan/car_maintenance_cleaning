@@ -104,7 +104,8 @@ class OrderController extends Controller
 
             return response([
                 'message' => 'Your order has been successfully created.',
-                'orderNumber' => $order->order_number
+                'orderNumber' => $order->order_number,
+                'balance' => $userBalance
             ],Response::HTTP_OK);
 
         } catch (\Exception $exception) {
