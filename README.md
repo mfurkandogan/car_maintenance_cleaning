@@ -41,3 +41,24 @@ Finally, run the command via composer:
 ```
 php artisan serve
 ```
+| ---------------------------------------------------------------------------------------------- |
+
+### Post - Login Request : /api/v1/login	
+
+### Get - User Request : /api/v1/user
+
+### Post - Register Request : /api/v1/register
+
+### Post - Logout Request : /api/v1/logout
+
+| ---------------------------------------------------------------------------------------------- |
+
+### Post - Add Balance Request : /api/v1/addBalance
+
+### Post - Create Order Request : /api/v1/createOrder
+
+### Get - Get Order Request : /api/v1/getOrders
+
+### Get - List Cars Request : /api/v1/getCars
+
+### Get - List Services Request : /api/v1/getServices

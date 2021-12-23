@@ -23,11 +23,11 @@ Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('user',[AuthController::class,'user']);
     Route::post('logout',[AuthController::class,'logout']);
     Route::post('addBalance',[BalanceController::class,'addBalance']);
-    Route::post('getServices',[ServiceController::class,'getServices']);
     Route::post('createOrder',[OrderController::class,'createOrder']);
+    Route::get('getServices',[ServiceController::class,'getServices']);
+    Route::get('user',[AuthController::class,'user']);
     Route::get('getCars',[CarController::class,'getCars']);
     Route::get('getOrders',[OrderController::class,'getOrders']);
 });
