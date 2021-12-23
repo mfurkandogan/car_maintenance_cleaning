@@ -23,8 +23,9 @@ class CarController extends Controller
             return new CarCollection($limitedData);
         } else {
             return response([
-                'message' => 'Failed to load vehicle information'
-            ], Response::HTTP_OK);
+                'message' => 'Failed to load vehicle information',
+                'status' => Response::HTTP_OK
+            ]);
         }
     }
 }

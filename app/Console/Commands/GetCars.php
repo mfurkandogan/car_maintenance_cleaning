@@ -47,11 +47,14 @@ class GetCars extends Command
         try {
             if (200 == $response->status()) {
                 $responseBody = json_decode($response->getBody(), true);
-                Redis::set(self::CAR_REDIS_KEY, json_encode($responseBody["RECORDS"]));
+                foreach ($responseBody["RECORDS"] as $record){
+                    Redis::set(self::CAR_REDIS_KEY.'_'.$record["id"], json_encode($record));
+                }
+
                 return true;
             }
         } catch (\Exception $exception) {
-            throw new Exception('Error loading json extension');
+            throw new Exception('Error loading json extension '.$exception->getMessage());
         }
         return false;
     }

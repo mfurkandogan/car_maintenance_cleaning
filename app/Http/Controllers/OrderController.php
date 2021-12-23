@@ -10,6 +10,7 @@ use App\Models\OrderItem;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use Mockery\Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,8 +24,8 @@ class OrderController extends Controller
         $service_id = $request->service_id ?? 0;
 
         $orders = Order::with('order_items.service');
-        if($service_id > 0){
-            $orders = $orders->where('service_id',$service_id);
+        if ($service_id > 0) {
+            $orders = $orders->where('service_id', $service_id);
         }
         $orders = $orders->skip($offset)->limit($limit)->get();
         return new OrderCollection($orders);
@@ -39,15 +40,23 @@ class OrderController extends Controller
         ]);
 
         if ($validation->fails()) {
-            return response(['message' => 'All fields are required','errors' => $validation->errors()->toArray()],
+            return response(['message' => 'All fields are required', 'errors' => $validation->errors()->toArray()],
                 Response::HTTP_NOT_ACCEPTABLE);
+        }
+
+        if (!Redis::exists('cars_' . $request->car_id)) {
+            return response([
+                'message' => 'Car not found',
+                'status' => Response::HTTP_NOT_ACCEPTABLE
+            ]);
         }
 
         $nonPublishedServices = Service::whereIn('id', $request->service_id)->nonPublished()->count();
 
         if ($nonPublishedServices > 0) {
             return response([
-                'message' => 'Sended service not usable'
+                'message' => 'Sended service not usable',
+                'status' => Response::HTTP_NOT_ACCEPTABLE
             ]);
         }
 
@@ -56,13 +65,15 @@ class OrderController extends Controller
 
         if ($totalServicePrice <> $request->price) {
             return response([
-                'message' => 'Sended price not equal to the total price of services'
+                'message' => 'Sended price not equal to the total price of services',
+                'status' => Response::HTTP_NOT_ACCEPTABLE
             ]);
         }
 
-        if($userBalance < $totalServicePrice){
+        if ($userBalance < $totalServicePrice) {
             return response([
-                'message' => 'User balance insufficient'
+                'message' => 'User balance insufficient',
+                'status' => Response::HTTP_NOT_ACCEPTABLE
             ]);
         }
 
@@ -84,25 +95,28 @@ class OrderController extends Controller
                 $order->order_items()->save($orderItem);
             }
 
-            auth()->user()->balanceTransAction(0,$request->input('price'));
+            auth()->user()->balanceTransAction(0, $request->input('price'));
 
             $data = [
-                'type'=>0,
-                'price'=>$totalServicePrice,
-                'order_id'=>$order->id
+                'type' => 0,
+                'price' => $totalServicePrice,
+                'order_id' => $order->id
             ];
             event(new BalanceHistoryEvent($data));
 
             DB::commit();
 
             return response([
-                'message'=>'Your order has been successfully created.',
-                'orderNumber' => $order->order_number
-            ], Response::HTTP_OK);
+                'message' => 'Your order has been successfully created.',
+                'orderNumber' => $order->order_number,
+                'status' => Response::HTTP_OK
+            ]);
 
         } catch (\Exception $exception) {
-            DB::rollback();
-            throw new Exception('An error occurred while ordering.');
+            return response([
+                'message'=>$exception->getMessage(),
+                'status' => Response::HTTP_NOT_ACCEPTABLE
+            ]);
         }
     }
 }

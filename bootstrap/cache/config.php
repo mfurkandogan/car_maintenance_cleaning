@@ -319,7 +319,7 @@
       'options' =>
       array (
         'cluster' => 'redis',
-        'prefix' => 'keys_',
+        'prefix' => '',
       ),
       'default' =>
       array (
