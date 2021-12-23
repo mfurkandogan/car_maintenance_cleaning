@@ -16,7 +16,8 @@ class BalanceController extends Controller
         $validation = Validator::make($request->all(),['price' => 'required|numeric']);
 
         if($validation->fails()){
-            return response(['message'=>'All fields are required']);
+            return response(['message'=>'All fields are required','errors' => $validation->errors()->toArray()],
+                \Symfony\Component\HttpFoundation\Response::HTTP_NOT_ACCEPTABLE);
         }
 
         $oldBalance = auth()->user()->balance;

@@ -22,7 +22,8 @@ class AuthController extends Controller
         ]);
 
         if($validation->fails()){
-            return response(['message'=>'All fields are required']);
+            return response(['message'=>'All fields are required','errors' => $validation->errors()->toArray()],
+                Response::HTTP_NOT_ACCEPTABLE);
         }
 
         try {

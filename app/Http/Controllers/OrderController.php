@@ -54,7 +54,8 @@ class OrderController extends Controller
         ]);
 
         if ($validation->fails()) {
-            return response(['message' => 'All fields are required']);
+            return response(['message' => 'All fields are required','errors' => $validation->errors()->toArray()],
+                \Symfony\Component\HttpFoundation\Response::HTTP_NOT_ACCEPTABLE);
         }
 
         $nonPublishedServices = Service::whereIn('id', $request->service_id)->nonPublished()->count();
