@@ -58,6 +58,7 @@ class AuthController extends Controller
         $token = $user->createToken('token')->plainTextToken;
         return response([
             'message' => 'Login token= ' . $token,
+            'balance'=>auth()->user()->balance
         ], Response::HTTP_OK);
     }
 
