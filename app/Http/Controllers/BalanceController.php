@@ -44,8 +44,7 @@ class BalanceController extends Controller
         } catch (\Exception $exception) {
             DB::rollback();
             return response([
-                'oldBalance' => number_format($oldBalance,2,'.',''),
-                'newBalance'=> $exception->getMessage()
+                'message'=>$exception->getMessage()
             ],\Symfony\Component\HttpFoundation\Response::HTTP_PAYMENT_REQUIRED);
 
         }
