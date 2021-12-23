@@ -15,7 +15,7 @@ class ServiceSeeder extends Seeder
         $data = array(
             [
                 'service_name' => 'maintenance',
-                'service_price' => 100
+                'service_price' => 150
             ],
             [
                 'service_name' => 'cleaning',
@@ -23,8 +23,16 @@ class ServiceSeeder extends Seeder
             ],
             [
                 'service_name' => 'painting',
-                'service_price' => 75
+                'service_price' => 195
             ],
+            [
+                'service_name' => 'new engine',
+                'service_price' => 1175
+            ],
+            [
+                'service_name' => 'new body',
+                'service_price' => 1000
+            ]
         );
         foreach ($data as $datum) {
             $service = new Service();
