@@ -18,9 +18,8 @@ class BalanceController extends Controller
         if($validation->fails()){
             return response([
                 'message'=>'An error occurred while adding balance',
-                'errors' => $validation->errors()->toArray(),
-                'status'=>\Symfony\Component\HttpFoundation\Response::HTTP_NOT_ACCEPTABLE
-                ]);
+                'errors' => $validation->errors()->toArray()
+                ],\Symfony\Component\HttpFoundation\Response::HTTP_NOT_ACCEPTABLE);
         }
 
 
@@ -40,17 +39,15 @@ class BalanceController extends Controller
             DB::commit();
             return response([
                 'oldBalance' => number_format($oldBalance,2,'.',''),
-                'newBalance'=> number_format($newBalance,2,'.',''),
-                'status' => \Symfony\Component\HttpFoundation\Response::HTTP_OK
-            ]);
+                'newBalance'=> number_format($newBalance,2,'.','')
+            ],\Symfony\Component\HttpFoundation\Response::HTTP_OK);
 
 
         } catch (\Exception $exception) {
             DB::rollback();
             return response([
-                'message'=>$exception->getMessage(),
-                'status' => \Symfony\Component\HttpFoundation\Response::HTTP_PAYMENT_REQUIRED
-            ]);
+                'message'=>$exception->getMessage()
+            ],\Symfony\Component\HttpFoundation\Response::HTTP_PAYMENT_REQUIRED);
 
         }
     }

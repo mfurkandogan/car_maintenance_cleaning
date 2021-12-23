@@ -46,18 +46,16 @@ class OrderController extends Controller
 
         if (!Redis::exists('cars_' . $request->car_id)) {
             return response([
-                'message' => 'Car not found',
-                'status' => Response::HTTP_NOT_ACCEPTABLE
-            ]);
+                'message' => 'Car not found'
+            ],Response::HTTP_NOT_ACCEPTABLE);
         }
 
         $nonPublishedServices = Service::whereIn('id', $request->service_id)->nonPublished()->count();
 
         if ($nonPublishedServices > 0) {
             return response([
-                'message' => 'Sended service not usable',
-                'status' => Response::HTTP_NOT_ACCEPTABLE
-            ]);
+                'message' => 'Sended service not usable'
+            ],Response::HTTP_NOT_ACCEPTABLE);
         }
 
         $totalServicePrice = Service::whereIn('id', $request->service_id)->published()->sum('service_price');
@@ -65,16 +63,14 @@ class OrderController extends Controller
 
         if ($totalServicePrice <> $request->price) {
             return response([
-                'message' => 'Sended price not equal to the total price of services',
-                'status' => Response::HTTP_NOT_ACCEPTABLE
-            ]);
+                'message' => 'Sended price not equal to the total price of services'
+            ],Response::HTTP_NOT_ACCEPTABLE);
         }
 
         if ($userBalance < $totalServicePrice) {
             return response([
-                'message' => 'User balance insufficient',
-                'status' => Response::HTTP_NOT_ACCEPTABLE
-            ]);
+                'message' => 'User balance insufficient'
+            ],Response::HTTP_NOT_ACCEPTABLE);
         }
 
         DB::beginTransaction();
@@ -108,15 +104,13 @@ class OrderController extends Controller
 
             return response([
                 'message' => 'Your order has been successfully created.',
-                'orderNumber' => $order->order_number,
-                'status' => Response::HTTP_OK
-            ]);
+                'orderNumber' => $order->order_number
+            ],Response::HTTP_OK);
 
         } catch (\Exception $exception) {
             return response([
-                'message'=>$exception->getMessage(),
-                'status' => Response::HTTP_NOT_ACCEPTABLE
-            ]);
+                'message'=>$exception->getMessage()
+            ],Response::HTTP_NOT_ACCEPTABLE);
         }
     }
 }
