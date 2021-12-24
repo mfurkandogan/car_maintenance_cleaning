@@ -58,7 +58,7 @@ Body Example :
 ```
 Header Example : 
 {
-    Bearer Token        --required
+    Bearer Token            --required
 }
 ```
 
@@ -66,9 +66,9 @@ Header Example :
 ```
 Body Example : 
 {
-    "name":"",          --required
-    "email":"",         --required
-    "password":""       --required
+    "name":"",              --required
+    "email":"",             --required
+    "password":""           --required
 }
 ```
 
@@ -77,7 +77,7 @@ Body Example :
 ```
 Header Example : 
 {
-    Bearer Token        --required
+    Bearer Token            --required
 }
 ```
 
@@ -87,7 +87,7 @@ Header Example :
 ```
 Header Example : 
 {
-    Bearer Token        --required
+    Bearer Token            --required
 }
 ```
 
@@ -95,7 +95,7 @@ Header Example :
 ```
 Header Example : 
 {
-    Bearer Token        --required
+    Bearer Token            --required
 }
 ```
 
@@ -103,7 +103,7 @@ Header Example :
 ```
 Header Example : 
 {
-    Bearer Token        --required
+    Bearer Token            --required
 }
 ```
 
@@ -112,12 +112,12 @@ Header Example :
 ```
 Header Example : 
 {
-    Bearer Token        --required
+    Bearer Token            --required
 }
 
 Body Example :
 {
-"price":"",             --required
+    "price":"",             --required
 }
 ```
 
@@ -125,14 +125,14 @@ Body Example :
 ```
 Header Example : 
 {
-    Bearer Token        --required
+    Bearer Token            --required
 }
 
 Body Example :
 {
-"service_id":"",        --required
-"car_id":"",            --required
-"price":""              --required
+    "service_id":"",        --required
+    "car_id":"",            --required
+    "price":""              --required
 }
 ```
 
