@@ -44,7 +44,7 @@ php artisan serve
 
 ## User Endpoints
 
-### Post - Login Request : /api/v1/login
+### Post - User Login Request : /api/v1/login
 
 ```
 Body Example : 
@@ -62,7 +62,7 @@ Header Example :
 }
 ```
 
-### Post - Register Request : /api/v1/register
+### Post - User Register Request : /api/v1/register
 ```
 Body Example : 
 {
@@ -83,7 +83,7 @@ Header Example :
 
 ## Operation Endpoints
 
-### Get - Get Order Request : /api/v1/getOrders
+### Get - Get User Order Request : /api/v1/getOrders
 ```
 Header Example : 
 {
